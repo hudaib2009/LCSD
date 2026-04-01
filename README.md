@@ -149,10 +149,14 @@ The `CT` confusion matrix:
 
 shows that the model correctly identified a large number of both negative and positive cases, while still producing some false positives and false negatives. This is expected in a practical medical-classification setting and reinforces why recall must be tracked carefully.
 
+![CT confusion matrix](metrics/1.png)
+
 ### CT ROC Curve
 
 The reported `ROC AUC = 0.939` indicates strong class separation ability.  
 This suggests that the model is not simply memorizing labels, but is learning useful discriminative signal from the input images.
+
+![CT ROC curve](metrics/2.png)
 
 ### Additional Confusion Matrix Example
 
@@ -164,6 +168,8 @@ Another shared confusion matrix:
 ```
 
 shows very strong balanced classification performance on that experiment, with only a small number of misclassifications. This kind of result is especially encouraging because both classes were recognized accurately.
+
+![Additional confusion matrix](metrics/3.png)
 
 ### Training vs Validation Loss
 
@@ -181,6 +187,12 @@ That behavior is one reason why this project emphasizes:
 - stronger regularization
 - better data diversity
 - augmentation and more balanced training data
+
+![Training and validation loss](metrics/4.png)
+
+The duplicated loss visualization is also included below for completeness:
+
+![Training and validation loss duplicate](metrics/5.png)
 
 ## Visual Findings Summary
 
