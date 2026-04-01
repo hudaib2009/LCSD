@@ -1,0 +1,53 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      CSD_HOST: 0.0.0.0
+      CSD_PORT: 8000
+    volumes:
+      - ./ml/models:/app/ml/models
+      - ./backend/app/outputs:/app/backend/app/outputs
+    expose:
+      - "8000"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      FASTAPI_BASE_URL: http://backend:8000
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      OPENROUTER_MODEL: ${OPENROUTER_MODEL:-tngtech/deepseek-r1t2-chimera:free}
+      OPENROUTER_FALLBACK_MODEL: ${OPENROUTER_FALLBACK_MODEL:-moonshotai/kimi-k2:free}
+      OPENROUTER_FALLBACK_MODEL_2: ${OPENROUTER_FALLBACK_MODEL_2:-openai/gpt-4o-mini}
+    volumes:
+      - ./frontend/data:/app/data
+      - ./frontend/storage:/app/storage
+    expose:
+      - "3000"
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    depends_on:
+      - frontend
+      - backend
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./infra/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:

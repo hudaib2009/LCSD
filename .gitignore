@@ -1,0 +1,81 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+.venv*/
+.venv-cxr/
+env/
+
+# Node / Next.js
+node_modules/
+.next/
+*.tsbuildinfo
+web/node_modules/
+web/.next/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+agents.md
+frontend/.env.local
+web/.env.local
+
+# Data and model artifacts
+ml/data/
+ml/models/
+ml/artifacts/
+frontend/storage/
+frontend/public/samples/
+data/
+models/
+artifacts/
+web/storage/
+ml/notebooks/processed_data/
+ml/notebooks/models/
+ml/notebooks/figures/
+ml/notebooks/metrics/
+# Keep ml/training tracked; only ignore notebook checkpoint junk there.
+ml/training/**/.ipynb_checkpoints/
+ml/training/cancer_staging/processed_data/
+ml/training/cancer_staging/models/
+ml/training/cancer_staging/figures/
+ml/training/cancer_staging/metrics/
+notebooks/processed_data/
+notebooks/models/
+notebooks/figures/
+notebooks/metrics/
+docs/research/
+vendor/cxr-foundation/
+tools/nbia/
+cxr-foundation/
+nbia_extract/
+nbia-data-retriever.jar
+nbia.deb
+*.h5
+*.hdf5
+*.keras
+*.npz
+*.npy
+
+# Training scratch files
+*.ipynb_checkpoints
+
+# Logs and generated outputs
+*.log
+backend/app/outputs/
+frontend/server/outputs/
+
+# Vendored / nested repositories
+vendor/cxr-foundation/.git/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

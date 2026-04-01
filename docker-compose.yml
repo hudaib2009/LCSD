@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    environment:
+      FASTAPI_BASE_URL: http://backend:8000
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      OPENROUTER_MODEL: ${OPENROUTER_MODEL:-tngtech/deepseek-r1t2-chimera:free}
+      OPENROUTER_FALLBACK_MODEL: ${OPENROUTER_FALLBACK_MODEL:-moonshotai/kimi-k2:free}
+      OPENROUTER_FALLBACK_MODEL_2: ${OPENROUTER_FALLBACK_MODEL_2:-openai/gpt-4o-mini}
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"

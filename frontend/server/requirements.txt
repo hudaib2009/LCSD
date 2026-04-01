@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+tensorflow
+pillow
+numpy
+opencv-python
+cxr-foundation @ https://github.com/Google-Health/cxr-foundation/archive/aa4c2117448978214a78fd63798930f4d6b9602e.zip#subdirectory=python
