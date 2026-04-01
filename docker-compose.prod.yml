@@ -9,6 +9,9 @@ services:
     environment:
       CSD_HOST: 0.0.0.0
       CSD_PORT: 8000
+      CSD_ALLOW_UNAUTHENTICATED: ${CSD_ALLOW_UNAUTHENTICATED:-0}
+      CSD_BASIC_AUTH_USERNAME: ${CSD_BASIC_AUTH_USERNAME:-}
+      CSD_BASIC_AUTH_PASSWORD: ${CSD_BASIC_AUTH_PASSWORD:-}
     volumes:
       - ./ml/models:/app/ml/models
       - ./backend/app/outputs:/app/backend/app/outputs
@@ -28,6 +31,9 @@ services:
       OPENROUTER_MODEL: ${OPENROUTER_MODEL:-tngtech/deepseek-r1t2-chimera:free}
       OPENROUTER_FALLBACK_MODEL: ${OPENROUTER_FALLBACK_MODEL:-moonshotai/kimi-k2:free}
       OPENROUTER_FALLBACK_MODEL_2: ${OPENROUTER_FALLBACK_MODEL_2:-openai/gpt-4o-mini}
+      CSD_ALLOW_UNAUTHENTICATED: ${CSD_ALLOW_UNAUTHENTICATED:-0}
+      CSD_BASIC_AUTH_USERNAME: ${CSD_BASIC_AUTH_USERNAME:-}
+      CSD_BASIC_AUTH_PASSWORD: ${CSD_BASIC_AUTH_PASSWORD:-}
     volumes:
       - ./frontend/data:/app/data
       - ./frontend/storage:/app/storage

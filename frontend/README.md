@@ -34,6 +34,11 @@ Optional frontend env vars:
 - `OPENROUTER_MODEL`
 - `OPENROUTER_FALLBACK_MODEL`
 - `OPENROUTER_FALLBACK_MODEL_2`
+- `CSD_ALLOW_UNAUTHENTICATED`
+- `CSD_BASIC_AUTH_USERNAME`
+- `CSD_BASIC_AUTH_PASSWORD`
+
+For any public or shared deployment, keep `CSD_ALLOW_UNAUTHENTICATED=0` and configure both basic-auth credentials so the case-management and file-serving routes are not publicly reachable.
 
 ## Runtime Data
 

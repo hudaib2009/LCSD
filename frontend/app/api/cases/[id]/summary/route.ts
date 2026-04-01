@@ -290,15 +290,15 @@ function buildModelInput(args: {
   const inputPayload = {
     case_id: paramsId,
     patient: {
-      name: caseRecord.patientName,
-      mrn: caseRecord.patientId,
+      name: "[Redacted]",
+      mrn: "[Redacted]",
       age: "[Not provided]",
       gender: "[Not provided]"
     },
     exam: {
       date: formatDateDMY(caseRecord.lastRunAt ?? caseRecord.createdAt),
       referring_physician: "[Not provided]",
-      clinical_indication: caseRecord.notes ?? "[Not provided]",
+      clinical_indication: caseRecord.notes ? "[Redacted]" : "[Not provided]",
       modality: inferModalityLabel(caseRecord.modality),
       technique: "[Not provided]",
       contrast_used: "[Not provided]",

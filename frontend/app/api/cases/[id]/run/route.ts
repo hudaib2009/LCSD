@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import path from "path";
 import { runInference } from "@/lib/inferenceClient";
 import { getCaseById, saveResults, updateCase } from "@/lib/store";
+import { sanitizeCaseForApi, sanitizeResultsForApi } from "@/lib/apiSanitizers";
 
 export const runtime = "nodejs";
 
@@ -37,7 +38,10 @@ export async function POST(
       lastRunAt: results.runAt
     });
 
-    return NextResponse.json({ case: caseRecord, results });
+    return NextResponse.json({
+      case: sanitizeCaseForApi(caseRecord),
+      results: sanitizeResultsForApi(results),
+    });
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "Inference failed.";

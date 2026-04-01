@@ -36,7 +36,6 @@ export async function GET(request: Request) {
     const data = await fs.readFile(filePath);
     const ext = path.extname(filePath).toLowerCase();
     const contentType = mimeTypes[ext] ?? "application/octet-stream";
-    console.log("[api/files] serve", filePath, "bytes", data.length);
 
     return new NextResponse(data, {
       headers: {

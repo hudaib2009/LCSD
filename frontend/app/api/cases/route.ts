@@ -2,12 +2,13 @@ import { NextResponse } from "next/server";
 import { randomUUID } from "crypto";
 import type { CaseRecord, Modality } from "@/lib/types";
 import { addCase, readCases, saveUpload } from "@/lib/store";
+import { sanitizeCaseForApi } from "@/lib/apiSanitizers";
 
 export const runtime = "nodejs";
 
 export async function GET() {
   const cases = await readCases();
-  return NextResponse.json(cases);
+  return NextResponse.json(cases.map(sanitizeCaseForApi));
 }
 
 export async function POST(request: Request) {
@@ -54,7 +55,7 @@ export async function POST(request: Request) {
 
   const wantsJson = request.headers.get("accept")?.includes("application/json");
   if (wantsJson) {
-    return NextResponse.json(caseRecord, { status: 201 });
+    return NextResponse.json(sanitizeCaseForApi(caseRecord), { status: 201 });
   }
 
   return NextResponse.redirect(new URL(`/cases/${id}`, request.url));

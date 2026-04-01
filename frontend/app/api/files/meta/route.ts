@@ -30,8 +30,7 @@ export async function GET(request: Request) {
       {
         exists: false,
         size: null,
-        contentType: null,
-        resolvedPath: filePath
+        contentType: null
       },
       { status: 400 }
     );
@@ -44,15 +43,13 @@ export async function GET(request: Request) {
     return NextResponse.json({
       exists: true,
       size: stat.size,
-      contentType,
-      resolvedPath: filePath
+      contentType
     });
   } catch {
     return NextResponse.json({
       exists: false,
       size: null,
-      contentType: null,
-      resolvedPath: filePath
+      contentType: null
     });
   }
 }

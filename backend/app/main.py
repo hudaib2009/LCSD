@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+import base64
 import logging
+import os
+import secrets
 from typing import Any
 
 from fastapi import FastAPI, File, Request, UploadFile
@@ -24,6 +27,50 @@ from backend.app.services.inference import (
 logger = logging.getLogger("csd.api")
 
 
+def auth_required() -> bool:
+    if os.getenv("CSD_ALLOW_UNAUTHENTICATED") == "1":
+        return False
+
+    return (
+        os.getenv("ENV") == "production"
+        or os.getenv("NODE_ENV") == "production"
+        or bool(
+            os.getenv("CSD_BASIC_AUTH_USERNAME")
+            and os.getenv("CSD_BASIC_AUTH_PASSWORD")
+        )
+    )
+
+
+def auth_configured() -> bool:
+    return bool(
+        os.getenv("CSD_BASIC_AUTH_USERNAME") and os.getenv("CSD_BASIC_AUTH_PASSWORD")
+    )
+
+
+def validate_basic_auth(header_value: str | None) -> bool:
+    if not header_value or not header_value.startswith("Basic "):
+        return False
+
+    try:
+        decoded = base64.b64decode(header_value[6:]).decode("utf-8")
+    except Exception:
+        return False
+
+    if ":" not in decoded:
+        return False
+
+    username, password = decoded.split(":", 1)
+    expected_username = os.getenv("CSD_BASIC_AUTH_USERNAME", "")
+    expected_password = os.getenv("CSD_BASIC_AUTH_PASSWORD", "")
+
+    return (
+        len(username) == len(expected_username)
+        and len(password) == len(expected_password)
+        and secrets.compare_digest(username, expected_username)
+        and secrets.compare_digest(password, expected_password)
+    )
+
+
 def create_app() -> FastAPI:
     app = FastAPI(title="CSD Inference Service")
 
@@ -34,6 +81,31 @@ def create_app() -> FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
+
+    @app.middleware("http")
+    async def require_auth(request: Request, call_next):
+        if request.url.path == "/health":
+            return await call_next(request)
+
+        if not auth_required():
+            return await call_next(request)
+
+        if not auth_configured():
+            return JSONResponse(
+                status_code=503,
+                content={"error": "Application auth is not configured."},
+            )
+
+        if not validate_basic_auth(request.headers.get("authorization")):
+            return JSONResponse(
+                status_code=401,
+                content={"error": "Authentication required."},
+                headers={
+                    "WWW-Authenticate": 'Basic realm="Clinical Support Dashboard API"'
+                },
+            )
+
+        return await call_next(request)
 
     @app.on_event("startup")
     def _startup() -> None:

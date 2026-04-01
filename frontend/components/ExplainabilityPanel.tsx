@@ -13,7 +13,6 @@ type MetaResponse = {
   exists: boolean;
   size: number | null;
   contentType: string | null;
-  resolvedPath: string;
 };
 
 type LoadFailure = {
@@ -246,17 +245,13 @@ export function ExplainabilityPanel({
           {overlayMeta ? (
             <p>
               overlay meta: exists={String(overlayMeta.exists)} size=
-              {overlayMeta.size ?? "null"} contentType=
-              {overlayMeta.contentType ?? "null"} resolvedPath=
-              {overlayMeta.resolvedPath}
+              {overlayMeta.size ?? "null"} contentType={overlayMeta.contentType ?? "null"}
             </p>
           ) : null}
           {heatmapMeta ? (
             <p>
               heatmap meta: exists={String(heatmapMeta.exists)} size=
-              {heatmapMeta.size ?? "null"} contentType=
-              {heatmapMeta.contentType ?? "null"} resolvedPath=
-              {heatmapMeta.resolvedPath}
+              {heatmapMeta.size ?? "null"} contentType={heatmapMeta.contentType ?? "null"}
             </p>
           ) : null}
           {error ? <p>explainability.error: {error}</p> : null}

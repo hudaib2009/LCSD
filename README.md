@@ -298,12 +298,17 @@ Important variables:
 - `OPENROUTER_MODEL`
 - `OPENROUTER_FALLBACK_MODEL`
 - `OPENROUTER_FALLBACK_MODEL_2`
+- `CSD_ALLOW_UNAUTHENTICATED`
+- `CSD_BASIC_AUTH_USERNAME`
+- `CSD_BASIC_AUTH_PASSWORD`
 - `CSD_USE_GPU`
 - `CSD_CT_MODEL_PATH`
 - `CSD_XRAY_MODEL_PATH`
 - `CSD_PATHOLOGY_MODEL_PATH`
 
 Model files are not bundled in this public repository. If you want to run real inference, you must provide those artifacts separately.
+
+For production deployments, keep `CSD_ALLOW_UNAUTHENTICATED=0` and set both basic-auth credentials. The frontend and backend now fail closed in production if auth is required but not configured.
 
 ## Deployment
 
