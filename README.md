@@ -1,6 +1,6 @@
-# Clinical Support Dashboard
+# LCSD
 
-Clinical Support Dashboard (`CSD`) is an AI-assisted lung cancer decision-support project built around medical image analysis. This public repository contains the application code, deployment configuration, tests, and a sanitized subset of the training materials.
+Lung Cancer Systemized Diagnoses (`LCSD`) is an AI-assisted lung cancer decision-support project built around medical image analysis. This public repository contains the application code, deployment configuration, tests, and a sanitized subset of the training materials.
 
 The system combines:
 
@@ -22,11 +22,11 @@ This project was created to explore how artificial intelligence and deep learnin
 
 Diagnosing lung cancer from medical images such as `CT` scans and chest `X-ray` images presents several challenges:
 
-- small lung nodules can be difficult to detect in early stages
+- Small lung nodules can be difficult to detect in early stages
 - healthy and abnormal tissues may look visually similar
 - image quality varies across devices and acquisition settings
-- reviewing large numbers of images requires time and sustained attention
-- false negatives are especially dangerous because they may delay treatment
+- Reviewing large numbers of images requires time and sustained attention
+- False negatives are especially dangerous because they may delay treatment
 
 The goal of this project is not to replace clinicians, but to provide an intelligent support system that helps improve speed, consistency, and diagnostic confidence.
 
@@ -34,7 +34,7 @@ The goal of this project is not to replace clinicians, but to provide an intelli
 
 - build a `CNN`-based model for lung-related medical image analysis
 - support early detection of possible lung cancer findings
-- reduce avoidable diagnostic delay in image review workflows
+- Reduce avoidable diagnostic delay in image review workflows
 - create a foundation that can later evolve into a practical clinical support system
 
 ## Datasets Used
