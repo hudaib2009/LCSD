@@ -203,26 +203,6 @@ From the figures shared for this project:
 - the loss curves indicate that regularization and validation-driven stopping are important
 - the overall results support the use of the model as a decision-support tool, not a standalone diagnostic system
 
-## Overfitting and Model Reliability
-
-One of the key risks in medical imaging models is `Overfitting`, where the model memorizes the training set instead of learning patterns that generalize.
-
-Common causes include:
-
-- limited data volume
-- model complexity that is too high for the dataset size
-- insufficient diversity in images
-- too many training epochs
-- class imbalance
-
-Typical mitigation strategies include:
-
-- `Data Augmentation`
-- `Dropout`
-- `Early Stopping`
-- `Regularization`
-- simplifying the model architecture
-- expanding the dataset with more real-world examples
 
 ## Expected Impact
 
